@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Details</title>
+</head>
+<body>
+<h1>Uploaded File Details</h1>
+<hr>
+<h3>Uploaded Image</h3>
+<img th:src="@{/uploaded_files/{fileName}(fileName=${fileName})}" alt="Uploaded image">
+
+<h3>Extracted Text</h3>
+<p>[[${extractedText}]]</p>
+
+<h3>Detected Language</h3>
+<p th:text="${detectedLanguage}"></p>
+
+<h3>Translated Text</h3>
+<p th:text="${translatedText}"></p>
+
+<form action="/upload" method="get">
+    <input type="submit" value="Translate Another">
+</form>
+</body>
+</html>
