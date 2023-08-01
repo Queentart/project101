@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tess {
-    public static Map<String, String> performOCRAndTranslation(String imagePath, String jsonKeyFilePath) {
+    public static Map<String, String> performOCRAndTranslation(File imageFile, String jsonKeyFilePath) {
         Map<String, String> result = new HashMap<>();
 
         // Tesseract OCR 인스턴스 생성
@@ -33,7 +33,6 @@ public class Tess {
 
         try {
             // 이미지 파일로부터 텍스트 추출
-            File imageFile = new File(imagePath);
             String extractedText = tesseract.doOCR(imageFile);
 
             // JSON 키 파일을 사용하여 인증 정보 로드

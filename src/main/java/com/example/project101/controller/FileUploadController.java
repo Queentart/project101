@@ -1,16 +1,26 @@
 package com.example.project101.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import com.example.project101.ocr.Tess;
 
@@ -25,40 +35,45 @@ public class FileUploadController {
         return "upload"; // upload.html 뷰 페이지로 이동
     }
 
-    @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> handleFileUpload(@RequestPart("file") MultipartFile file) {
         if (!file.isEmpty()) {
+            // 업로드된 파일을 저장할 폴더 생성 (폴더가 없을 경우)
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            // 파일 이름 변경
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            String filePath = uploadDirectory + File.separator + fileName;
+
             try {
-                // 업로드된 파일을 저장할 폴더 생성 (폴더가 없을 경우)
-                File uploadDir = new File(uploadDirectory);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
+                // 임시 폴더에 파일 저장
+                String tempFilePath = "C:/temp/" + fileName;
+                file.transferTo(new File(tempFilePath));
 
-                // 업로드된 파일을 서버에 저장
-                String filePath = uploadDirectory + File.separator + file.getOriginalFilename();
-                file.transferTo(new File(filePath));
+                // 이미지 이동
+                Files.move(Paths.get(tempFilePath), Paths.get(filePath));
 
-                // 이미지에서 텍스트 추출 및 번역
-                String jsonKeyFilePath = "";
-                Map<String, String> ocrAndTranslationResult = Tess.performOCRAndTranslation(filePath, jsonKeyFilePath);
+                // 이미지 파일을 사용하여 OCR 및 번역 수행
+                File imageFile = new File(filePath);
+                String jsonKeyFilePath = ""; // JSON 키 파일 경로
 
-                // 모델에 결과 추가하여 uploaded.html로 전달
-                model.addAttribute("fileName", file.getOriginalFilename());
-                model.addAttribute("extractedText", ocrAndTranslationResult.get("extractedText"));
-                model.addAttribute("detectedLanguage", ocrAndTranslationResult.get("detectedLanguage"));
-                model.addAttribute("translatedText", ocrAndTranslationResult.get("translatedText"));
+                Map<String, String> result = Tess.performOCRAndTranslation(imageFile, jsonKeyFilePath);
 
-                return "uploaded"; // 업로드 완료 페이지로 이동
+                return ResponseEntity.ok(result);
             } catch (IOException e) {
-                // 파일 업로드 중 오류 발생 시 처리
                 e.printStackTrace();
-                model.addAttribute("error", "Error occurred during file upload: " + e.getMessage());
+                Map<String, String> errorResult = new HashMap<>();
+                errorResult.put("error", "Error occurred during file upload and OCR: " + e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResult);
             }
         } else {
             // 업로드할 파일이 없을 경우 처리
-            model.addAttribute("error", "Please select a file to upload.");
+            Map<String, String> errorResult = new HashMap<>();
+            errorResult.put("error", "Please select a file to upload.");
+            return ResponseEntity.badRequest().body(errorResult);
         }
-        return "error"; // 에러 페이지로 이동
     }
 }

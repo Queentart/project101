@@ -1,15 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons CSS (추가한 부분) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Translation</title>
 </head>
+
 <body>
-<h1>Upload Here!</h1>
-<form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <input type="submit" value="Upload" />
-</form>
+<section class="section">
+    <h1 class="title">AI-based Photo Text Translator</h1>
+    <h2 class="subtitle">What text would you like to translate?</h2>
+</section>
+
+<div>OCR & Text Translation Model</div>
+<div class="container file-upload">
+    <div class="image-upload-wrap">
+        <!-- label 태그 수정 -->
+        <label for="file-input">
+            <input id="file-input" class="file-upload-input" type='file' accept="image/*"
+                   onchange="readURL(this);" />
+            <div class="drag-text">
+                <!-- 이미지 경로 수정 -->
+                <i class="mt-5 pt-5 upload bi bi-cloud-upload d-flex justify-content-start"></i>
+                <h3 class="mb-5 pb-5 pt-4  upload-text d-flex justify-content-start">Upload Your Image Here!</h3>
+            </div>
+        </label>
+    </div>
+    <div class="file-upload-content">
+        <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+        <div class="image-title-wrap">
+            <!-- Start Translate 버튼 -->
+            <button type="button" onclick="startTranslate()" class="translate-image">Start Translate</button>
+        </div>
+    </div>
+</div>
+<div id="webcam-container"></div>
+<div id="label-container"></div>
+
+<!-- Display result section -->
+<div id="resultSection" style="display: none;">
+    <h3>Extracted Text</h3>
+    <p id="extractedText"></p>
+
+    <h3>Detected Language</h3>
+    <p id="detectedLanguage"></p>
+
+    <h3>Translated Text</h3>
+    <p id="translatedText"></p>
+
+    <!-- Translate Another 버튼 -->
+    <div class="text-center mt-3">
+        <button type="button" class="btn btn-primary translate-another" onclick="location.reload();">Translate
+            Another</button>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+                    $('.image-title').html(input.files[0].name);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function startTranslate() {
+            // 이미지 업로드를 통해 전송할 FormData 객체 생성
+            var formData = new FormData();
+            formData.append("file", $('#file-input')[0].files[0]);
+
+            console.log("startTranslate() is called"); // 디버그 로그 추가
+
+            // OCR 및 번역 요청을 보냄 (비동기 처리)
+            $.ajax({
+                url: "/upload", // 변경된 URL
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    // OCR 결과 표시
+                    $('#extractedText').text(result.extractedText);
+                    $('#detectedLanguage').text(result.detectedLanguage);
+                    $('#translatedText').text(result.translatedText);
+                    $('#resultSection').show();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error occurred during OCR and translation: " + error);
+                }
+            });
+        }
+
+        // 나머지 부분은 그대로 유지
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
 </body>
 </html>
