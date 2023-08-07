@@ -1,0 +1,175 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("/images/pexels-anete-lusina-6331082.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* mypage.css */
+.overlay {
+  background-color: rgba(255, 255, 255, 0.7); /* 반투명한 배경 색상 설정 */
+  position: fixed;
+  top: 50%; /* 화면의 중간 위치로 이동 */
+  left: 50%; /* 화면의 중간 위치로 이동 */
+  transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+  width: 70%; /* 전체 화면의 70% 너비 */
+  height: auto; /* 내용에 따라 높이 조절 */
+  z-index: 1000;
+}
+
+.overlay-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+  .member-info {
+    margin-bottom: 20px; /* 원하는 여백 크기로 조절하세요 */
+  }
+
+  .buttons-container {
+    margin-top: 30px; /* 원하는 여백 크기로 조절하세요 */
+  }
+
+.navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-logo {
+  width: 62.22px; /* 원하는 너비로 조절하세요 */
+  height: 40px; /* 자동으로 높이 조절됨 */
+}
+
+.footer {
+    color: lightgrey;
+}
+
+/* Custom button styles */
+.btn {
+    text-transform: uppercase;
+    padding: 0;
+    background-color: transparent !important;
+}
+
+.btn span {
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn span:before,
+.btn span:after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    border-style: solid;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn span:before {
+    top: -6px;
+    left: -6px;
+    border-width: 2px 0 0 2px;
+}
+
+.btn span:after {
+    bottom: -6px;
+    right: -6px;
+    border-width: 0 2px 2px 0;
+}
+
+.btn span:hover:before,
+.btn span:hover:after {
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    transform: rotateY(180deg);
+}
+
+.btn.blue span,
+.btn.blue span:hover {
+    color: #3bb4e5;
+    border: 2px solid #3bb4e5;
+}
+
+.btn.blue span:before,
+.btn.blue span:after,
+.btn.blue span:hover:before,
+.btn.blue span:hover:after {
+    border-color: #3bb4e5;
+}
+
+/*회원탈퇴 버튼*/
+.btn.btn-d span,
+.btn.btn-d span:hover {
+    color: #CE0011;
+    border: 2px solid transparent;
+}
+
+.btn.btn-d span:before,
+.btn.btn-d span:after,
+.btn.btn-d span:hover:before,
+.btn.btn-d span:hover:after {
+    border-color: #CE0011;
+}
+
+/*화원가입 수정 버튼*/
+.btn.btn-s span,
+.btn.btn-s span:hover {
+    color: #000E91;
+    border: 2px solid transparent;
+}
+
+.btn.btn-s span:before,
+.btn.btn-s span:after,
+.btn.btn-s span:hover:before,
+.btn.btn-s span:hover:after {
+    border-color: #000E91;
+}
+
+/* 모달 내부 버튼 스타일 */
+.modal-footer .custom-btn.btn-blue span,
+.modal-footer .custom-btn.btn-blue span:hover {
+    color: #3bb4e5 !important;
+    border: 2px solid #3bb4e5 !important;
+}
+
+.modal-footer .custom-btn.btn-d span,
+.modal-footer .custom-btn.btn-d span:hover {
+    color: #CE0011 !important;
+    border: 2px solid transparent !important;
+}
+
+.modal-footer .custom-btn.btn-s span,
+.modal-footer .custom-btn.btn-s span:hover {
+    color: #000E91 !important;
+    border: 2px solid transparent !important;
+}
+
+.modal-footer .custom-btn.btn-blue span:before,
+.modal-footer .custom-btn.btn-blue span:after,
+.modal-footer .custom-btn.btn-blue span:hover:before,
+.modal-footer .custom-btn.btn-blue span:hover:after {
+    border-color: #3bb4e5 !important;
+}
+
+.modal-footer .custom-btn.btn-d span:before,
+.modal-footer .custom-btn.btn-d span:after,
+.modal-footer .custom-btn.btn-d span:hover:before,
+.modal-footer .custom-btn.btn-d span:hover:after {
+    border-color: #CE0011 !important;
+}
+
+.modal-footer .custom-btn.btn-s span:before,
+.modal-footer .custom-btn.btn-s span:after,
+.modal-footer .custom-btn.btn-s span:hover:before,
+.modal-footer .custom-btn.btn-s span:hover:after {
+    border-color: #000E91 !important;
+}

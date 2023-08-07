@@ -8,6 +8,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "login"; // login.html 파일명
     }
 }
+

@@ -18,12 +18,41 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/page?page=main">
+            <img src="/images/logo-removebg-copy.png" alt="Logo" class="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">메인화면</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=intro">소개</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=mypage">마이페이지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=upload">문자번역</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <section class="section">
     <h1 class="title">AI-based Photo Text Translator</h1>
     <h2 class="subtitle">What text would you like to translate?</h2>
 </section>
 
-<div>OCR & Text Translation Model</div>
+<div class="model-title">OCR & Text Translation Model</div>
+
 <div class="container file-upload">
     <div class="image-upload-wrap">
         <!-- label 태그 수정 -->
@@ -38,85 +67,114 @@
         </label>
     </div>
     <div class="file-upload-content">
+        <!-- 42번째 줄에서 사진 출력 사이즈 조절 필요 -->
         <img class="file-upload-image" id="face-image" src="#" alt="your image" />
         <div class="image-title-wrap">
             <!-- Start Translate 버튼 -->
-            <button type="button" onclick="startTranslate()" class="translate-image">Start Translate</button>
+            <button id="startTranslateBtn" type="button" onclick="startTranslate()" class="btn btn-blue w-100">
+                <span>Start Translate</span>
+            </button>
+        </div>
+    </div>
+    <div id="loading" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner-border" role="status"></div>
+            <p class="text-center" style="visibility: visible;">AI is translating your text of image.</p>
+        </div>
+    </div>
+    <p class="result-message"></p>
+    <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+    <div id="addThis" class="addthis_inline_share_toolbox_6lz1"></div>
+
+    <!-- Display result section -->
+    <div id="resultSection" style="display: none;">
+        <h3 class="text-center">Extracted Text</h3>
+        <p id="extractedText" class="text-center"></p>
+
+        <h3 class="text-center">Detected Language</h3>
+        <p id="detectedLanguage" class="text-center"></p>
+
+        <h3 class="text-center">Translated Text</h3>
+        <p id="translatedText" class="text-center"></p>
+
+        <!-- Translate Another 버튼 -->
+        <div class="text-center mt-3">
+            <button type="button" class="btn btn-blue w-100" onclick="translateAnother()">
+                <span>Translate Another</span>
+            </button>
         </div>
     </div>
 </div>
-<div id="webcam-container"></div>
-<div id="label-container"></div>
 
-<!-- Display result section -->
-<div id="resultSection" style="display: none;">
-    <h3>Extracted Text</h3>
-    <p id="extractedText"></p>
-
-    <h3>Detected Language</h3>
-    <p id="detectedLanguage"></p>
-
-    <h3>Translated Text</h3>
-    <p id="translatedText"></p>
-
-    <!-- Translate Another 버튼 -->
-    <div class="text-center mt-3">
-        <button type="button" class="btn btn-primary translate-another" onclick="location.reload();">Translate
-            Another</button>
+<footer class="footer">
+    <div class="container text-center">
+        <p>&copy; 2023 Made By Team Lanuagenie. All rights reserved. <i class="bi bi-patch-question"></i></p>
     </div>
-</div>
+</footer>
+<!-- <div id="webcam-container"></div> -->
+<!-- <div id="label-container"></div> -->
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.image-upload-wrap').hide();
-                    $('.file-upload-image').attr('src', e.target.result);
-                    $('.file-upload-content').show();
-                    $('.image-title').html(input.files[0].name);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+                $('.image-title').html(input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        function startTranslate() {
-            // 이미지 업로드를 통해 전송할 FormData 객체 생성
-            var formData = new FormData();
-            formData.append("file", $('#file-input')[0].files[0]);
+function startTranslate() {
+    $('#startTranslateBtn').hide(); // Start Translate 버튼 숨기기
+    $('#loading').show(); // 로딩 화면 표시
 
-            console.log("startTranslate() is called"); // 디버그 로그 추가
+    var formData = new FormData();
+    formData.append("file", $('#file-input')[0].files[0]);
 
-            // OCR 및 번역 요청을 보냄 (비동기 처리)
-            $.ajax({
-                url: "/upload", // 변경된 URL
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    // OCR 결과 표시
-                    $('#extractedText').text(result.extractedText);
-                    $('#detectedLanguage').text(result.detectedLanguage);
-                    $('#translatedText').text(result.translatedText);
-                    $('#resultSection').show();
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error occurred during OCR and translation: " + error);
-                }
-            });
+    $.ajax({
+        url: "/upload",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (result) {
+            $('#extractedText').text(result.extractedText);
+            $('#detectedLanguage').text(result.detectedLanguage);
+            $('#translatedText').text(result.translatedText);
+            $('#resultSection').show();
+
+            $('#loading').hide(); // 로딩 화면 숨기기
+            $('#loadingText').css('visibility', 'hidden'); // AI 문구 숨기기
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred during OCR and translation: " + error);
+            $('#loading').hide(); // 로딩 화면 숨기기 (에러 발생 시)
+            $('#loadingText').css('visibility', 'hidden'); // AI 문구 숨기기 (에러 발생 시)
         }
+    });
+}
 
-        // 나머지 부분은 그대로 유지
-        $('.image-upload-wrap').bind('dragover', function () {
-            $('.image-upload-wrap').addClass('image-dropping');
-        });
-        $('.image-upload-wrap').bind('dragleave', function () {
-            $('.image-upload-wrap').removeClass('image-dropping');
-        });
-    </script>
+    function translateAnother() {
+        $('#resultSection').hide(); // 결과 섹션 숨기기
+        $('#file-input').val(''); // 파일 업로드 입력값 초기화
+        $('.file-upload-content').hide(); // 파일 업로드 컨텐츠 숨기기
+        $('.image-upload-wrap').show(); // 이미지 업로드 랩 보이기
+        $('#startTranslateBtn').show(); // Start Translate 버튼 보이기
+    }
+
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-image: url("/images/main_page.png");
+        background-size: cover;
+        background-position: center;
+        font-family: sans-serif;
+    /* 다른 스타일을 추가하거나 수정하세요 */
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-logo {
+  width: 62.22px; /* 원하는 너비로 조절하세요 */
+  height: 40px; /* 자동으로 높이 조절됨 */
+}
+

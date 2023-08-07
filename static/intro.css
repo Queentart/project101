@@ -1,0 +1,114 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("/images/pexels-anete-lusina-6331082.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-logo {
+    width: 62.22px;
+    height: 40px;
+}
+
+.intro-section {
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 100vh;
+    width: 70%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 우측에 정렬 */
+}
+
+.intro-carousel {
+    position: relative;
+    margin-top: 50px;
+    max-width: 100%; /* 최대 너비 설정 */
+    overflow: hidden;
+}
+
+/* 페이지 버튼의 스타일 */
+/* 페이지 버튼을 가운데 정렬하고, 가로 너비를 내용에 맞게 설정합니다 */
+/* 페이지 버튼의 스타일 */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+
+/* 페이지 버튼의 각 아이템 스타일 */
+.carousel-indicators li {
+    background-color: #navy;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    margin: 0 12px;
+}
+
+/* 활성화된 페이지 버튼 스타일 */
+.carousel-indicators .active {
+    background-color: black;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    display: none;
+    width: 20%;
+    flex-shrink: 0;
+    margin-right: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+    left: -2%; /* 왼쪽에 배치 */
+}
+
+.carousel-control-next {
+    right: -2%; /* 오른쪽에 배치 */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(218deg) brightness(100%) contrast(100%);
+    width: 100%;
+    font-size: 6rem;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: white;
+}
+
+.footer {
+    text-align: center;
+    background-color: transparent;
+    padding: 10px;
+    color: lightgrey;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

@@ -2,14 +2,35 @@
 body {
     font-family: sans-serif;
     background-color: #ffffff;
+    background-image: url('/images/pexels-anete-lusina-6331082.jpg');
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-logo {
+  width: 62.22px; /* 원하는 너비로 조절하세요 */
+  height: 40px; /* 자동으로 높이 조절됨 */
+}
+
+.model-title {
+    text-align: center; /* 가운데 정렬 */
+    font-size: 1rem; /* 원하는 글자 크기로 조정 */
+    margin-bottom: 1rem; /* 아래쪽 여백 추가 */
+    margin-top: 2rem;
 }
 
 .file-upload {
     padding: 15% 3%;
     margin: 0 auto;
     border-radius: 10px;
-    border: solid 1.5px #f6f7fa;
-    background-color: #f6f7fa;
+    /*border: solid 1.5px #f6f7fa;*/
+    border: solid 1.5px rgba(255, 255, 255, 0.7);
+    /*background-color: #f6f7fa;*/
+    background-color: rgba(255, 255, 255, 0.7); /* 수정된 부분 */
 }
 
 .file-upload-btn {
@@ -108,59 +129,83 @@ body {
     margin-bottom: 1rem; /* 아이콘과 이미지 사이의 간격 조정 */
 }
 
-.translate-image {
-    width: 200px;
-    margin: 0;
+/* Loading 화면 스타일 */
+.loading-overlay {
+    display: none; /* 처음에는 화면에 표시하지 않음 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* 가장 위에 나타나도록 설정 */
+}
+
+.loading-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     color: #fff;
-    background: #cd4535;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    border-bottom: 4px solid #b02818;
-    transition: all .2s ease;
-    outline: none;
-    text-transform: uppercase;
-    font-weight: 700;
 }
 
-.translate-image:hover {
-    background: #c13b2a;
-    color: #ffffff;
-    transition: all .2s ease;
-    cursor: pointer;
-}
+/*번역 수행 스타일*/
 
-.translate-image:active {
-    border: 0;
-    transition: all .2s ease;
-}
+        .btn {
+            text-transform: uppercase;
+            padding: 0;
+            background-color: transparent !important; /* Overwrite Bootstrap's background color */
+        }
 
-.translate-another {
-    width: 200px;
-    margin: 0;
-    color: #fff;
-    background: #cd4535;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    border-bottom: 4px solid #b02818;
-    transition: all .2s ease;
-    outline: none;
-    text-transform: uppercase;
-    font-weight: 700;
-}
+        .btn span {
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
 
-.translate-another:hover {
-    background: #c13b2a;
-    color: #ffffff;
-    transition: all .2s ease;
-    cursor: pointer;
-}
+        .btn span:before,
+        .btn span:after {
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            border-style: solid;
+            transition: all 0.3s ease-in-out;
+        }
 
-.translate-another:active {
-    border: 0;
-    transition: all .2s ease;
-}
+        .btn span:before {
+            top: -6px;
+            left: -6px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .btn span:after {
+            bottom: -6px;
+            right: -6px;
+            border-width: 0 2px 2px 0;
+        }
+
+        .btn span:hover:before,
+        .btn span:hover:after {
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            transform: rotateY(180deg);
+        }
+
+        .btn.blue span,
+        .btn.blue span:hover {
+            color: #3bb4e5;
+            border: 2px solid #3bb4e5;
+        }
+
+        .btn.blue span:before,
+        .btn.blue span:after,
+        .btn.blue span:hover:before,
+        .btn.blue span:hover:after {
+            border-color: #3bb4e5;
+        }
 
 .section {
     margin-top: 100px;
@@ -178,6 +223,10 @@ body {
     line-height: 1.53;
     text-align: center;
     color: #35465d;
+}
+
+.footer {
+    color: lightgrey;
 }
 
 /* On screens that are 600px or less, set the background color to olive */

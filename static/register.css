@@ -1,0 +1,85 @@
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url("/images/pexels-anete-lusina-6331082.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-box {
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Additional CSS for centering navbar items */
+        .navbar .navbar-nav {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .navbar-logo {
+          width: 62.22px; /* 원하는 너비로 조절하세요 */
+          height: 40px; /* 자동으로 높이 조절됨 */
+        }
+
+        /* Your custom CSS styles */
+        .btn {
+            text-transform: uppercase;
+            padding: 0;
+            background-color: transparent !important; /* Overwrite Bootstrap's background color */
+        }
+
+        .btn span {
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn span:before,
+        .btn span:after {
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            border-style: solid;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn span:before {
+            top: -6px;
+            left: -6px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .btn span:after {
+            bottom: -6px;
+            right: -6px;
+            border-width: 0 2px 2px 0;
+        }
+
+        .btn span:hover:before,
+        .btn span:hover:after {
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            transform: rotateY(180deg);
+        }
+
+        .btn.blue span,
+        .btn.blue span:hover {
+            color: #3bb4e5;
+            border: 2px solid #3bb4e5;
+        }
+
+        .btn.blue span:before,
+        .btn.blue span:after,
+        .btn.blue span:hover:before,
+        .btn.blue span:hover:after {
+            border-color: #3bb4e5;
+        }

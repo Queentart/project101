@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="intro.css"> <!-- 별도의 CSS 파일을 사용할 경우 링크 추가 -->
+    <title>Introduction</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/page?page=main">
+            <img src="/images/logo-removebg-copy.png" alt="Logo" class="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">메인화면</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=intro">소개</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=mypage">마이페이지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page?page=upload">문자번역</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="intro-section">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="max-width: 800px; margin: 0 auto">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h1 class="mb-4">Welcome to Languagenie</h1>
+                            <p>
+                                Languagenie is an innovative text translation application powered by AI. Our mission is to
+                                bridge language barriers and make communication between people from different linguistic
+                                backgrounds easier than ever.
+                            </p>
+                            <p>
+                                With our advanced AI technology, Languagenie can accurately translate text from one language to
+                                another, opening up new possibilities for global communication, education, and collaboration.
+                            </p>
+                            <p>
+                                Whether you're a student, a traveler, a professional, or just someone curious about languages, you
+                                can rely on LanguageGenie to help you break down language barriers and connect with people around
+                                the world.
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2>Introduction to OCR</h2>
+                            <p>
+                                Optical Character Recognition (OCR) is a technology that recognizes text within an image and converts it into machine-readable text that a computer can understand.
+                                Languagenie's OCR feature supports various languages and fonts, enabling the extraction and translation of text embedded in images.
+                            </p>
+                        </div>
+                        <div class="carousel-item">
+                            <h2>Introduction to NLP</h2>
+                            <p>
+                                Natural Language Processing (NLP) is a field in which machines like computers understand and process human language.
+                                Languagenie's NLP feature interprets and extracts meaning from texts in various languages through sentence structure analysis, sentiment analysis, text summarization, and more.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators">
+                        <ol class="carousel-indicators justify-content-center" style="bottom: -30px;"> <!-- 위치 및 간격 조정 -->
+                            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"></li>
+                        </ol>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2023 Made By Team Lanuagenie. All rights reserved. <i class="bi bi-patch-question"></i></p>
+        </div>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
