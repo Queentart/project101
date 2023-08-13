@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en' xmlns:th="http://www.thymeleaf.org">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
@@ -11,29 +11,84 @@
     <title>Records</title>
 </head>
 <body>
-<div class="overlay d-flex align-items-center justify-content-center">
-  <div class="container my-5" style="width: 70%;">
-    <div class="row">
-      <div class="col-md-8 mx-auto text-center">
-        <h3>Your Records:</h3>
-          <table>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/page?page=main">
+      <img src="/images/logo-removebg-copy.png" alt="Logo" class="navbar-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">메인화면</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page?page=intro">소개</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page?page=mypage">마이페이지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/page?page=upload">문자번역</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link btn btn-blue" href="/page?page=login">
+            <span>로그인</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-r" href="/page?page=register">
+            <span>회원가입</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="overlay d-flex align-items-center justify-content-center">
+    <div class="container my-5" style="width: 70%;">
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+          <h3>Your Records:</h3>
+          <table class="table">
+            <thead>
             <tr>
               <th>ID</th>
               <th>Extracted Text</th>
               <th>Detected Language</th>
               <th>Translated Text</th>
+              <th>Created At</th> <!-- 작성시간 열 추가 -->
             </tr>
+            </thead>
+            <tbody>
             <tr th:each="record : ${records}">
               <td th:text="${record.id}"></td>
               <td th:text="${record.extractedText}"></td>
               <td th:text="${record.detectedLanguage}"></td>
               <td th:text="${record.translatedText}"></td>
+              <td th:text="${#temporals.format(record.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
+            </tbody>
           </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="container text-center">
+    <p>&copy; 2023 Made By Team Lanuagenie. All rights reserved. <i class="bi bi-patch-question"></i></p>
+  </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

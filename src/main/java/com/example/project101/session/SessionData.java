@@ -1,39 +1,36 @@
 package com.example.project101.session;
 
-import lombok.Data;
+import com.example.project101.dto.MemberTableDTO;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Data
+@Component
 public class SessionData {
-    private String memberName;
-    private String memberPassword;
-    private Long memberId;
 
-    public static void setLoggedIn(HttpServletRequest request, String name, String password, Long memberId) {
-        HttpSession session = request.getSession();
-        session.setAttribute("memberName", name);
-        session.setAttribute("memberPassword", password);
-        session.setAttribute("memberId", memberId);
+    private static final String LOGGED_IN_USER_ATTRIBUTE = "loggedInUser";
+
+    public void setLoggedInUser(MemberTableDTO loggedInUser, HttpSession session) {
+        int sessionTimeoutInSeconds = 3600;
+        session.setMaxInactiveInterval(sessionTimeoutInSeconds);
+
+        session.setAttribute(LOGGED_IN_USER_ATTRIBUTE, loggedInUser);
     }
 
-    public static void setLoggedOut(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("memberName");
-        session.removeAttribute("memberPassword");
-        session.removeAttribute("memberId");
-        session.invalidate();
+    public void updateLoggedInUser(MemberTableDTO loggedInUser, HttpSession session) {
+        MemberTableDTO existingUser = getLoggedInUser(session);
+        if (existingUser != null) {
+            existingUser.setName(loggedInUser.getName());
+            // You can update other fields as well if needed
+            session.setAttribute(LOGGED_IN_USER_ATTRIBUTE, existingUser);
+        }
     }
 
-    public SessionData(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        setMemberName((String) session.getAttribute("memberName"));
-        setMemberPassword((String) session.getAttribute("memberPassword"));
-        setMemberId((Long) session.getAttribute("memberId"));
+    public MemberTableDTO getLoggedInUser(HttpSession session) {
+        return (MemberTableDTO) session.getAttribute(LOGGED_IN_USER_ATTRIBUTE);
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public void removeLoggedInUser(HttpSession session) {
+        session.removeAttribute(LOGGED_IN_USER_ATTRIBUTE);
     }
 }
