@@ -21,3 +21,72 @@ body {
   height: 40px; /* 자동으로 높이 조절됨 */
 }
 
+        .btn {
+            text-transform: uppercase;
+            padding: 0;
+            background-color: transparent !important; /* Overwrite Bootstrap's background color */
+        }
+
+        .btn span {
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn span:before,
+        .btn span:after {
+            content: "";
+            display: block;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            border-style: solid;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn span:before {
+            top: -6px;
+            left: -6px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .btn span:after {
+            bottom: -6px;
+            right: -6px;
+            border-width: 0 2px 2px 0;
+        }
+
+        .btn span:hover:before,
+        .btn span:hover:after {
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            transform: rotateY(180deg);
+        }
+
+        .btn.blue span,
+        .btn.blue span:hover {
+            color: #3bb4e5;
+            border: 2px solid #3bb4e5;
+        }
+
+        .btn.blue span:before,
+        .btn.blue span:after,
+        .btn.blue span:hover:before,
+        .btn.blue span:hover:after {
+            border-color: #3bb4e5;
+        }
+
+        /*회원가입 버튼*/
+        .btn.btn-r span,
+        .btn.btn-r span:hover {
+            color: #006882;
+            border: 2px solid transparent;
+        }
+
+        .btn.btn-r span:before,
+        .btn.btn-r span:after,
+        .btn.btn-r span:hover:before,
+        .btn.btn-r span:hover:after {
+            border-color: #006882;
+        }
+

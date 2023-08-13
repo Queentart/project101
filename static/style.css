@@ -207,6 +207,20 @@ body {
             border-color: #3bb4e5;
         }
 
+                /*회원가입 버튼*/
+                .btn.btn-r span,
+                .btn.btn-r span:hover {
+                    color: #006882;
+                    border: 2px solid transparent;
+                }
+
+                .btn.btn-r span:before,
+                .btn.btn-r span:after,
+                .btn.btn-r span:hover:before,
+                .btn.btn-r span:hover:after {
+                    border-color: #006882;
+                }
+
 .section {
     margin-top: 100px;
 }
