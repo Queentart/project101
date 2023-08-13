@@ -83,3 +83,16 @@
         .btn.blue span:hover:after {
             border-color: #3bb4e5;
         }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            background-color: transparent;
+            padding: 10px 0;
+            color: #6c757d;
+            text-align: center;
+            z-index: 999;
+        }
