@@ -58,7 +58,7 @@ public class FileUploadController {
 
                 // 이미지 파일을 사용하여 OCR 및 번역 수행
                 File imageFile = new File(filePath);
-                String jsonKeyFilePath = ""; // JSON 키 파일 경로
+                String jsonKeyFilePath = "C:/translation_api_key/spherical-entry-391823-2f5e9256772c.json"; // JSON 키 파일 경로
 
                 Map<String, String> result = Tess.performOCRAndTranslation(imageFile, jsonKeyFilePath);
 
